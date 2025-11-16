@@ -24,3 +24,9 @@ cdtv-144:
 
 cdtv-288:
 	$(XILINXENV) make -f ../Makefile.cpld BOARD=$(BOARD) SOURCES=$(SOURCES) SUBPROJ=main REVISION=$(REVISION) OPTMODE=speed OPTIMISE=speed CLOCK_PHASE=$(CLOCK_PHASE) CHIPSIZE=288 TARGET=CDTV
+
+clean:
+	rm -rf work _xmsgs xlnx_auto_* *.jed *.svf
+
+distclean: clean
+	rm -rf *~

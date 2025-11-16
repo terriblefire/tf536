@@ -113,6 +113,7 @@ $(PB).svf: $(PB).jed
 	@echo "Output $@ is ready"
 
 clean:
-	$(RM) -r $(WD) $(OUTPUT) _xmsgs 
+	$(RM) -r $(WD) _xmsgs xlnx_auto_*
+	$(RM) *.jed *.svf
 distclean: clean
 	$(RM) -r *~
