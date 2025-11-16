@@ -1,0 +1,170 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: Get version info
+      id: version
+      run: |
+        GITVERSION=$(git rev-parse --short HEAD)
+        DATESTRING=$(date +"%Y_%m_%d")
+        if [[ $GITHUB_REF == refs/tags/* ]]; then
+          VERSION=${GITHUB_REF#refs/tags/}
+        else
+          VERSION="snapshot_${DATESTRING}_${GITVERSION}"
+        fi
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+        echo "gitversion=$GITVERSION" >> $GITHUB_OUTPUT
+        echo "datestring=$DATESTRING" >> $GITHUB_OUTPUT
+        echo "Release version: $VERSION"
+
+    - name: Build boot ROM
+      run: |
+        cd rom
+        make
+
+    - name: Build CPLD firmware
+      run: |
+        cd boards/tf536r2
+        GITVERSION=${{ steps.version.outputs.gitversion }}
+        docker run --rm --platform linux/amd64 -v $PWD/../..:/host -w /host/boards/tf536r2 -e GITVERSION=$GITVERSION terriblefire78/xilinx:v1 bash -c "git config --global --add safe.directory /host && make a500 cdtv"
+
+    - name: Generate Gerbers
+      run: |
+        cd eagle
+        GERBER_DIR="tf536_${{ steps.version.outputs.gitversion }}_${{ steps.version.outputs.datestring }}"
+        mkdir -p ${GERBER_DIR}
+        docker run --rm --platform linux/amd64 -v $(pwd):/work -w /work terriblefire78/eagle:v1 eagle -X -dCAMJOB -jjlcpcb_4_layer_v9.cam -o${GERBER_DIR} tf536.brd
+
+    - name: Create Gerber ZIP
+      run: |
+        cd eagle
+        GERBER_DIR="tf536_${{ steps.version.outputs.gitversion }}_${{ steps.version.outputs.datestring }}"
+        zip -r ${GERBER_DIR}.zip ${GERBER_DIR}
+
+    - name: Generate schematic PDF
+      run: |
+        cd eagle
+        docker run --rm --platform linux/amd64 -v $(pwd):/work -w /work terriblefire78/eagle-pdf python /app/generate_schematic_pdf.py tf536.sch tf536_${{ steps.version.outputs.gitversion }}_${{ steps.version.outputs.datestring }}.pdf
+
+    - name: Generate BOM and CPL
+      run: |
+        cd eagle
+        python3 extract_bom.py tf536.sch tf536_bom.csv
+        python3 extract_cpl.py tf536.brd tf536_cpl.csv
+
+    - name: Create release package
+      run: |
+        mkdir -p release
+        VERSION=${{ steps.version.outputs.version }}
+        PACKAGE_NAME="tf536_${VERSION}"
+
+        # Create package directory structure
+        mkdir -p release/${PACKAGE_NAME}/{firmware,pcb,assembly,docs}
+
+        # Copy firmware (both A500 and CDTV variants)
+        cp boards/tf536r2/*.jed release/${PACKAGE_NAME}/firmware/
+
+        # Copy PCB files
+        cp eagle/tf536_*.zip release/${PACKAGE_NAME}/pcb/
+
+        # Copy schematic
+        cp eagle/tf536_*.pdf release/${PACKAGE_NAME}/docs/
+
+        # Copy assembly files
+        cp eagle/tf536_bom.csv release/${PACKAGE_NAME}/assembly/
+        cp eagle/tf536_cpl.csv release/${PACKAGE_NAME}/assembly/
+
+        # Copy documentation
+        cp README.md release/${PACKAGE_NAME}/docs/
+        cp LICENSE release/${PACKAGE_NAME}/docs/
+        cp IDE_BUILD_OPTIONS.md release/${PACKAGE_NAME}/docs/
+        cp JLCPCB_ORDERING_GUIDE.md release/${PACKAGE_NAME}/docs/
+
+        # Create README for the release
+        {
+          echo "TF536 Release"
+          echo "============="
+          echo ""
+          echo "This package contains all files needed to manufacture and program the TF536 board."
+          echo ""
+          echo "Contents:"
+          echo "---------"
+          echo "firmware/       - CPLD programming files (.jed) for A500 and CDTV"
+          echo "pcb/            - Gerber files for PCB manufacturing"
+          echo "assembly/       - BOM and CPL files for PCB assembly"
+          echo "docs/           - Schematic PDF, README, LICENSE, and build documentation"
+          echo ""
+          echo "Manufacturing:"
+          echo "--------------"
+          echo "1. Use the Gerber ZIP in pcb/ to order PCBs from your preferred manufacturer"
+          echo "2. Use the BOM (Bill of Materials) and CPL (Component Placement List) in assembly/"
+          echo "   for PCB assembly services like JLCPCB"
+          echo "3. See IDE_BUILD_OPTIONS.md for choosing between buffered/unbuffered IDE interface"
+          echo "4. Program the CPLD using the appropriate JED file in firmware/"
+          echo "   - tf536r2_main_top_A500_*.jed for Amiga 500"
+          echo "   - tf536r2_main_top_CDTV_*.jed for Commodore CDTV"
+          echo ""
+          echo "License:"
+          echo "--------"
+          echo "This work is licensed under CC-BY-ND 4.0"
+          echo "See LICENSE in docs/ for details"
+          echo ""
+          echo "For more information, visit: https://github.com/terriblefire/tf536"
+        } > release/${PACKAGE_NAME}/README.txt
+
+        # Create release ZIP
+        cd release
+        zip -r ${PACKAGE_NAME}.zip ${PACKAGE_NAME}
+
+    - name: Upload release package
+      uses: actions/upload-artifact@v4
+      with:
+        name: tf536-release-${{ steps.version.outputs.version }}
+        path: release/tf536_${{ steps.version.outputs.version }}.zip
+        retention-days: 90
+
+    - name: Create GitHub Release
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v1
+      with:
+        files: release/tf536_${{ steps.version.outputs.version }}.zip
+        body: |
+          TF536 Release ${{ steps.version.outputs.version }}
+
+          This release includes:
+          - CPLD firmware (JED files) for Amiga 500 and CDTV
+          - PCB Gerbers for manufacturing
+          - BOM and CPL for assembly
+          - Schematic PDF
+          - Complete documentation (README, LICENSE, IDE build options, JLCPCB ordering guide)
+
+          See README.txt in the package for details.
+
+          **Important:** Choose between buffered or unbuffered IDE interface during assembly.
+          See IDE_BUILD_OPTIONS.md in the docs/ folder.
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
