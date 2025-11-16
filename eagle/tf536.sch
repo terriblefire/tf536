@@ -3721,7 +3721,7 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/74VHC245PW,11
 </instance>
 </instances>
 <busses>
-<bus name="A[0..31],A_BUF[2..4],ACTIVE,AGND,ARAM[0..12],AS,AS20,AS30,AUX[0..1],AVEC,BA[0..1],BERR,BG,BG20,BG30,BGACK,BGACK20,BGACK30,BR,BR20,BR30,BUSEN,CAS,CBACK,CBREQ,CDIS,CFGIN,CFGOUT,CIIN,CIIOUT,CLK7M,CLK14M,CLK50M,CLK100M,CLKCPU,CLKRAM,CLKRAME,D[0..31],DBEN,DIDE[0..15],DQM[0..3],DRAM[0..31],DS20,DS30,DS30ACK[0..1],DSACK[0..1],DTACK,E,FC[0..2],FIRE[0..1],GND,HALT,IDECS,IDECS[0..1],IDECS_BUF[0..1],IDEINT,IDEINT_CLEAN,IDELED,IDEWAIT,INT2,INT6,INTCYCLE,IOR,IOR_BUF,IOW,IOW_BUF,IPL[0..2],LDS,MMUDIS,PUNT,RAMCS,RAMOE,RAMWE,RAS,REFILL,RESET,R/W,RW20,RW30,RXD,RXD_EXT,SIZ[0..1],SPARE,STATUS,STERM,TCK,TDI,TDO,TMS,TXD,TXD_EXT,UDS,VCC,VCC33,VMA,VPA">
+<bus name="A[0..31],A_BUF[2..4],ACTIVE,AGND,ARAM[0..12],AS,AS20,AS30,AUX[0..1],AVEC,BA[0..1],BERR,BG,BG20,BG30,BGACK,BGACK20,BGACK30,BR,BR20,BR30,BUSEN,CAS,CBACK,CBREQ,CDIS,CFGIN,CFGOUT,CIIN,CIIOUT,CLK7M_RAW,CLK14M,CLK50M,CLK100M,CLKCPU,CLKRAM,CLKRAME,D[0..31],DBEN,DIDE[0..15],DQM[0..3],DRAM[0..31],DS20,DS30,DS30ACK[0..1],DSACK[0..1],DTACK,E,FC[0..2],FIRE[0..1],GND,HALT,IDECS,IDECS[0..1],IDECS_BUF[0..1],IDEINT,IDEINT_CLEAN,IDELED,IDEWAIT,INT2,INT6,INTCYCLE,IOR,IOR_BUF,IOW,IOW_BUF,IPL[0..2],LDS,MMUDIS,PUNT,RAMCS,RAMOE,RAMWE,RAS,REFILL,RESET,R/W,RW20,RW30,RXD,RXD_EXT,SIZ[0..1],SPARE,STATUS,STERM,TCK,TDI,TDO,TMS,TXD,TXD_EXT,UDS,VCC,VCC33,VMA,VPA">
 <segment>
 <wire x1="284.48" y1="218.44" x2="469.9" y2="218.44" width="0.762" layer="92"/>
 <wire x1="469.9" y1="218.44" x2="472.44" y2="218.44" width="0.762" layer="92"/>
@@ -5768,7 +5768,7 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/74VHC245PW,11
 <pinref part="IC3" gate="G$1" pin="PB8/15"/>
 </segment>
 </net>
-<net name="DS30ACK1" class="0">
+<net name="DSACK1" class="0">
 <segment>
 <pinref part="IC1" gate="G$1" pin="DSACK1"/>
 <wire x1="121.92" y1="149.86" x2="83.82" y2="149.86" width="0.1524" layer="91"/>
@@ -5780,7 +5780,7 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/74VHC245PW,11
 <pinref part="IC3" gate="G$1" pin="PB8/5"/>
 </segment>
 </net>
-<net name="DS30ACK0" class="0">
+<net name="DSACK0" class="0">
 <segment>
 <pinref part="IC1" gate="G$1" pin="DSACK0"/>
 <wire x1="121.92" y1="152.4" x2="83.82" y2="152.4" width="0.1524" layer="91"/>
@@ -5862,21 +5862,21 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/74VHC245PW,11
 <label x="299.72" y="139.7" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="DQM3" class="0">
+<net name="DQM0" class="0">
 <segment>
 <pinref part="IC3" gate="G$1" pin="PB2/6"/>
 <wire x1="284.48" y1="167.64" x2="325.12" y2="167.64" width="0.1524" layer="91"/>
 <label x="299.72" y="167.64" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="DQM2" class="0">
+<net name="DQM1" class="0">
 <segment>
 <pinref part="IC3" gate="G$1" pin="PB2/17"/>
 <wire x1="284.48" y1="137.16" x2="325.12" y2="137.16" width="0.1524" layer="91"/>
 <label x="299.72" y="137.16" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="DQM0" class="0">
+<net name="DQM3" class="0">
 <segment>
 <pinref part="IC3" gate="G$1" pin="PB1/2"/>
 <wire x1="284.48" y1="134.62" x2="325.12" y2="134.62" width="0.1524" layer="91"/>
@@ -5960,7 +5960,7 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/74VHC245PW,11
 <label x="299.72" y="104.14" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="DQM1" class="0">
+<net name="DQM2" class="0">
 <segment>
 <pinref part="IC3" gate="G$1" pin="PB1/10"/>
 <wire x1="284.48" y1="96.52" x2="325.12" y2="96.52" width="0.1524" layer="91"/>
@@ -6002,7 +6002,7 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/74VHC245PW,11
 <label x="393.7" y="45.72" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
-<net name="CLK7M" class="0">
+<net name="CLK7M_RAW" class="0">
 <segment>
 <pinref part="IC3" gate="G$1" pin="PB5/7"/>
 <wire x1="406.4" y1="33.02" x2="406.4" y2="58.42" width="0.1524" layer="91"/>
@@ -6509,7 +6509,7 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/74VHC245PW,11
 </instance>
 </instances>
 <busses>
-<bus name="A[0..31],A_BUF[2..4],ACTIVE,AGND,ARAM[0..12],AS,AS20,AS30,AUX[0..1],AVEC,BA[0..1],BERR,BG,BG20,BG30,BGACK,BGACK20,BGACK30,BR,BR20,BR30,BUSEN,CAS,CBACK,CBREQ,CDIS,CFGIN,CFGOUT,CIIN,CIIOUT,CLK7M,CLK14M,CLK50M,CLK100M,CLKCPU,CLKRAM,CLKRAME,D[0..31],DBEN,DIDE[0..15],DQM[0..3],DRAM[0..31],DS20,DS30,DS30ACK[0..1],DSACK[0..1],DTACK,E,FC[0..2],FIRE[0..1],GND,HALT,IDECS,IDECS[0..1],IDECS_BUF[0..1],IDEINT,IDEINT_CLEAN,IDELED,IDEWAIT,INT2,INT6,INTCYCLE,IOR,IOR_BUF,IOW,IOW_BUF,IPL[0..2],LDS,MMUDIS,PUNT,RAMCS,RAMOE,RAMWE,RAS,REFILL,RESET,R/W,RW20,RW30,RXD,RXD_EXT,SIZ[0..1],SPARE,STATUS,STERM,TCK,TDI,TDO,TMS,TXD,TXD_EXT,UDS,VCC,VCC33,VMA,VPA">
+<bus name="A[0..31],A_BUF[2..4],ACTIVE,AGND,ARAM[0..12],AS,AS20,AS30,AUX[0..1],AVEC,BA[0..1],BERR,BG,BG20,BG30,BGACK,BGACK20,BGACK30,BR,BR20,BR30,BUSEN,CAS,CBACK,CBREQ,CDIS,CFGIN,CFGOUT,CIIN,CIIOUT,CLK7M_RAW,CLK14M,CLK50M,CLK100M,CLKCPU,CLKRAM,CLKRAME,D[0..31],DBEN,DIDE[0..15],DQM[0..3],DRAM[0..31],DS20,DS30,DS30ACK[0..1],DSACK[0..1],DTACK,E,FC[0..2],FIRE[0..1],GND,HALT,IDECS,IDECS[0..1],IDECS_BUF[0..1],IDEINT,IDEINT_CLEAN,IDELED,IDEWAIT,INT2,INT6,INTCYCLE,IOR,IOR_BUF,IOW,IOW_BUF,IPL[0..2],LDS,MMUDIS,PUNT,RAMCS,RAMOE,RAMWE,RAS,REFILL,RESET,R/W,RW20,RW30,RXD,RXD_EXT,SIZ[0..1],SPARE,STATUS,STERM,TCK,TDI,TDO,TMS,TXD,TXD_EXT,UDS,VCC,VCC33,VMA,VPA">
 <segment>
 <wire x1="0" y1="185.42" x2="0" y2="12.7" width="0.762" layer="92"/>
 <wire x1="0" y1="185.42" x2="91.44" y2="185.42" width="0.762" layer="92"/>
@@ -7050,28 +7050,28 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/74VHC245PW,11
 <label x="223.52" y="157.48" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="DQM3" class="0">
+<net name="DQM0" class="0">
 <segment>
 <pinref part="IC7" gate="G$1" pin="DQMH"/>
 <wire x1="0" y1="124.46" x2="25.4" y2="124.46" width="0.1524" layer="91"/>
 <label x="7.62" y="124.46" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="DQM2" class="0">
+<net name="DQM1" class="0">
 <segment>
 <pinref part="IC7" gate="G$1" pin="DQML"/>
 <wire x1="91.44" y1="121.92" x2="60.96" y2="121.92" width="0.1524" layer="91"/>
 <label x="73.66" y="121.92" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="DQM1" class="0">
+<net name="DQM2" class="0">
 <segment>
 <pinref part="IC8" gate="G$1" pin="DQMH"/>
 <wire x1="91.44" y1="124.46" x2="116.84" y2="124.46" width="0.1524" layer="91"/>
 <label x="99.06" y="124.46" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="DQM0" class="0">
+<net name="DQM3" class="0">
 <segment>
 <pinref part="IC8" gate="G$1" pin="DQML"/>
 <wire x1="182.88" y1="121.92" x2="152.4" y2="121.92" width="0.1524" layer="91"/>
@@ -7797,7 +7797,7 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/74VHC245PW,11
 </instance>
 </instances>
 <busses>
-<bus name="A[0..31],AGND,AS,AS20,AVEC,BERR,BG,BG20,BGACK,BR,BURST[2..3],BUSEN,CBACK,CBREQ,CDIS,CIIN,CIIOUT,CLK7M,CLKCPU,CPCS,CPSENSE,D[0..31],D68K[0..15],DBEN,DS20,DSACK[0..1],DTACK,E,FC[0..2],GND,HALT,IDECS[0..1],IDEINT,IDEIOEN,IDELED,IDEWAIT,INT2,INTCYCLE,IOR,IOW,IPL[0..2],LDS,MMUDIS,OVL,RAMCS[0..3],RAMOE,REFILL,RESET,R/W,R/W20,RW30,SIZ[0..1],SPARE,SPI_CLK,SPI_CS[0..1],SPI_MISO,SPI_MOSI,STATUS,STERM,TCK,TDI,TDINT,TDO,TMS,UDS,VCC,VCC18,VCC33,VMA,VPA">
+<bus name="A[0..31],AGND,AS,AS20,AVEC,BERR,BG,BG20,BGACK,BR,BURST[2..3],BUSEN,CBACK,CBREQ,CDIS,CIIN,CIIOUT,CLK7M_RAW,CLKCPU,CPCS,CPSENSE,D[0..31],D68K[0..15],DBEN,DS20,DSACK[0..1],DTACK,E,FC[0..2],GND,HALT,IDECS[0..1],IDEINT,IDEIOEN,IDELED,IDEWAIT,INT2,INTCYCLE,IOR,IOW,IPL[0..2],LDS,MMUDIS,OVL,RAMCS[0..3],RAMOE,REFILL,RESET,R/W,R/W20,RW30,SIZ[0..1],SPARE,SPI_CLK,SPI_CS[0..1],SPI_MISO,SPI_MOSI,STATUS,STERM,TCK,TDI,TDINT,TDO,TMS,UDS,VCC,VCC18,VCC33,VMA,VPA">
 <segment>
 <wire x1="210.82" y1="-5.08" x2="210.82" y2="218.44" width="0.762" layer="92"/>
 <wire x1="210.82" y1="218.44" x2="83.82" y2="218.44" width="0.762" layer="92"/>
@@ -8315,7 +8315,7 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/74VHC245PW,11
 <junction x="200.66" y="187.96"/>
 </segment>
 </net>
-<net name="CLK7M" class="0">
+<net name="CLK7M_RAW" class="0">
 <segment>
 <pinref part="X1" gate="G$1" pin="CLK"/>
 <wire x1="83.82" y1="170.18" x2="127" y2="170.18" width="0.1524" layer="91"/>

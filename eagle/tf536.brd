@@ -5779,7 +5779,7 @@ by exp-lbrs.ulp</description>
 <wire x1="45.71945625" y1="55.858515625" x2="41.4909" y2="51.629959375" width="0.1524" layer="1"/>
 <wire x1="41.4909" y1="51.629959375" x2="41.4909" y2="30.7467" width="0.1524" layer="1"/>
 </signal>
-<signal name="DQM3">
+<signal name="DQM0">
 <contactref element="IC7" pad="39"/>
 <contactref element="IC3" pad="3"/>
 <wire x1="61.6123875" y1="70.337234375" x2="62.363378125" y2="71.088225" width="0.1524" layer="1"/>
@@ -5787,7 +5787,7 @@ by exp-lbrs.ulp</description>
 <wire x1="63.7794" y1="71.088225" x2="66.770425" y2="68.0972" width="0.1524" layer="1"/>
 <wire x1="66.770425" y1="68.0972" x2="72.1738" y2="68.0972" width="0.1524" layer="1"/>
 </signal>
-<signal name="DQM2">
+<signal name="DQM1">
 <contactref element="IC7" pad="15"/>
 <contactref element="IC3" pad="15"/>
 <via x="69.6722" y="76.9112" extent="1-16" drill="0.35"/>
@@ -5799,7 +5799,7 @@ by exp-lbrs.ulp</description>
 <wire x1="57.369746875" y1="74.579875" x2="59.701071875" y2="76.9112" width="0.1524" layer="1"/>
 <wire x1="59.701071875" y1="76.9112" x2="69.6722" y2="76.9112" width="0.1524" layer="1"/>
 </signal>
-<signal name="DQM1">
+<signal name="DQM2">
 <contactref element="IC8" pad="39"/>
 <contactref element="IC3" pad="31"/>
 <via x="80.2132" y="93.4466" extent="1-16" drill="0.35"/>
@@ -5816,7 +5816,7 @@ by exp-lbrs.ulp</description>
 <wire x1="61.912865625" y1="90.4367" x2="74.6125" y2="90.4367" width="0.1524" layer="1"/>
 <wire x1="51.71289375" y1="80.236728125" x2="61.912865625" y2="90.4367" width="0.1524" layer="1"/>
 </signal>
-<signal name="DQM0">
+<signal name="DQM3">
 <contactref element="IC8" pad="15"/>
 <wire x1="101.4606" y1="77.5588" x2="100.6476" y2="77.5588" width="0.1524" layer="1"/>
 <wire x1="91.8718" y1="86.3346" x2="91.8718" y2="87.5792" width="0.1524" layer="1"/>
@@ -5830,7 +5830,7 @@ by exp-lbrs.ulp</description>
 <wire x1="57.01619375" y1="74.933428125" x2="60.187765625" y2="78.105" width="0.1524" layer="1"/>
 <wire x1="60.187765625" y1="78.105" x2="73.7108" y2="78.105" width="0.1524" layer="1"/>
 </signal>
-<signal name="DS30ACK1">
+<signal name="DSACK1">
 <contactref element="IC1" pad="G02"/>
 <contactref element="IC3" pad="92"/>
 <wire x1="36.43774375" y1="55.062084375" x2="41.476815625" y2="60.10115625" width="0.1524" layer="1"/>
@@ -5842,7 +5842,7 @@ by exp-lbrs.ulp</description>
 <wire x1="47.0916" y1="15.3416" x2="48.62694375" y2="16.87694375" width="0.1524" layer="1"/>
 <wire x1="48.62694375" y1="16.87694375" x2="50.32874375" y2="16.87694375" width="0.1524" layer="1"/>
 </signal>
-<signal name="DS30ACK0">
+<signal name="DSACK0">
 <contactref element="IC1" pad="F01"/>
 <contactref element="IC3" pad="93"/>
 <wire x1="36.76794375" y1="54.685178125" x2="41.83036875" y2="59.747603125" width="0.1524" layer="1"/>
@@ -6431,7 +6431,7 @@ by exp-lbrs.ulp</description>
 <wire x1="13.705" y1="16.273" x2="13.705" y2="28.459" width="0.1524" layer="16"/>
 <wire x1="13.705" y1="28.459" x2="5.6896" y2="36.4744" width="0.1524" layer="16"/>
 </signal>
-<signal name="CLK7M">
+<signal name="CLK7M_RAW">
 <contactref element="X1" pad="15"/>
 <contactref element="IC3" pad="66"/>
 <wire x1="26.9494" y1="46.6344" x2="25.019" y2="46.6344" width="0.254" layer="1"/>
