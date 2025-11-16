@@ -35,8 +35,8 @@ $(ROMFOLDER)/bootrom.v:
 
 zip: distclean $(BOARDPREFIX)
 	zip $(BOARDPREFIX)_$(DATESTRING)_$(GITVERSION)$(SUFFIX).zip *.jed README.txt 
-clean:	
+clean:
 	rm -rf work _xmsgs *.zip xlnx_auto_* *.jed *.svf
 distclean: clean
-	rm -f *.jed *~ *.svf 
+	rm -f *~ 
    
