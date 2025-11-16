@@ -1,6 +1,6 @@
-# JLCPCB Ordering Guide for the **TFMSX** Project
+# JLCPCB Ordering Guide for the **TF536** Project
 
-This guide walks you step‑by‑step through ordering the **TFMSX** PCB from JLCPCB using the files provided in the GitHub repository: <https://github.com/terriblefire/tfmsx>
+This guide walks you step‑by‑step through ordering the **TF536** PCB from JLCPCB using the files provided in the GitHub repository: <https://github.com/terriblefire/tf536>
 
 It is written for beginners and assumes **no prior PCB ordering experience**.
 
@@ -8,30 +8,30 @@ It is written for beginners and assumes **no prior PCB ordering experience**.
 
 ## 📁 1. Download and Extract the Release Package
 
-1. Go to the GitHub repository: <https://github.com/terriblefire/tfmsx>
+1. Go to the GitHub repository: <https://github.com/terriblefire/tf536>
 2. Open the **Releases** section.
-3. Download the **single release ZIP file** (e.g., `tfmsx_v2.0.0.zip`).
+3. Download the **single release ZIP file** (e.g., `tf536_v1.0.0.zip`).
 4. Extract the ZIP. You will see a structure like this:
 
 ```
 assembly/
-    tfmsx_bom.csv
-    tfmsx_cpl.csv
+    tf536_bom.csv
+    tf536_cpl.csv
 
 pcb/
-    tfmsx_XXXX.zip   (Gerber manufacturing file)
+    tf536_XXXX.zip   (Gerber manufacturing file)
 
 firmware/
-    *.jed files
+    *.jed files (A500 and CDTV variants)
 
 docs/
-    PDF documentation
+    PDF documentation, README, LICENSE, IDE_BUILD_OPTIONS.md
 ```
 
 The files needed for JLCPCB are:
 - **Gerber ZIP file:** located in the `pcb/` folder
-- **BOM file:** `assembly/tfmsx_bom.csv`
-- **CPL file:** `assembly/tfmsx_cpl.csv`
+- **BOM file:** `assembly/tf536_bom.csv`
+- **CPL file:** `assembly/tf536_cpl.csv`
 
 ---
 
@@ -43,7 +43,7 @@ The files needed for JLCPCB are:
 
 JLCPCB will automatically detect the board size and number of layers.
 
-> **Note:** JLCPCB does *not* always detect PCB thickness. For TFMSX, set **1.6 mm thickness manually**.
+> **Note:** JLCPCB does *not* always detect PCB thickness. For TF536, set **1.6 mm thickness manually**.
 
 ---
 
@@ -136,10 +136,14 @@ Inspect the board visually. If assembled, verify correct component placement.
 
 ---
 
-## 🧩 9. Additional Notes for TFMSX Users
+## 🧩 9. Additional Notes for TF536 Users
 
+- **IDE Interface Options:** The TF536 has two mutually exclusive build options for the IDE interface:
+  - **Unbuffered (Default):** Populate RN5-RN10 with 0Ω resistor networks
+  - **Buffered:** Populate IC4, IC5, IC6 with buffer ICs
+  - ⚠️ **Never populate both!** See `IDE_BUILD_OPTIONS.md` in the docs folder for details.
 - Check the GitHub repo for **firmware**, **build notes**, or **updates**.
-- Some components may need to be hand‑soldered depending on the project.
+- Some components may need to be hand‑soldered depending on your chosen configuration.
 - Refer to the project README for configuration or installation instructions.
 
 ---
