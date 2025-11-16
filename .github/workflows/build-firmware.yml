@@ -1,0 +1,52 @@
+name: Build CPLD Firmware
+
+on:
+  push:
+    branches: [ develop, main ]
+    paths:
+      - 'rtl/**'
+      - 'boards/**'
+      - 'rom/**'
+  pull_request:
+    branches: [ develop, main ]
+    paths:
+      - 'rtl/**'
+      - 'boards/**'
+      - 'rom/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Need full history for git version info
+
+    - name: Build boot ROM
+      run: |
+        cd rom
+        make
+
+    - name: Build CPLD firmware
+      run: |
+        cd boards/tf536r2
+        GITVERSION=$(git rev-parse --short HEAD)
+        docker run --rm --platform linux/amd64 -v $PWD/../..:/host -w /host/boards/tf536r2 -e GITVERSION=$GITVERSION terriblefire78/xilinx:v1 bash -c "git config --global --add safe.directory /host && make a500 cdtv"
+
+    - name: Upload JED files
+      uses: actions/upload-artifact@v4
+      with:
+        name: cpld-firmware
+        path: boards/tf536r2/*.jed
+        retention-days: 90
+
+    - name: Display build info
+      run: |
+        echo "CPLD firmware build completed"
+        ls -lh boards/tf536r2/*.jed

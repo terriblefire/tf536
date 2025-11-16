@@ -1,0 +1,48 @@
+name: Generate Schematic PDF
+
+on:
+  push:
+    branches: [ develop, main ]
+    tags:
+      - 'v*'
+  pull_request:
+    branches: [ develop, main ]
+
+permissions:
+  contents: write
+
+jobs:
+  pdf:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Need full history for git rev-parse
+
+    - name: Generate PDF schematic
+      run: |
+        cd eagle
+        make pdf
+
+    - name: Get PDF filename
+      id: get-pdf-name
+      run: |
+        cd eagle
+        PDF_FILE=$(ls tf536_*.pdf | head -1)
+        echo "pdf_file=$PDF_FILE" >> $GITHUB_OUTPUT
+        echo "PDF file: $PDF_FILE"
+
+    - name: Upload PDF as artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: schematic-pdf
+        path: eagle/${{ steps.get-pdf-name.outputs.pdf_file }}
+        retention-days: 90
+
+    - name: Release PDF (on tags)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v1
+      with:
+        files: eagle/${{ steps.get-pdf-name.outputs.pdf_file }}

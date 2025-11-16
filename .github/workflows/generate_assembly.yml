@@ -1,0 +1,53 @@
+name: Generate Assembly Files
+
+on:
+  push:
+    paths:
+      - 'eagle/*.sch'
+      - 'eagle/*.brd'
+      - 'eagle/extract_bom.py'
+      - 'eagle/extract_cpl.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-assembly:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Generate BOM and CPL
+        run: |
+          cd eagle
+          make assembly
+
+      - name: Upload BOM as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: assembly-bom
+          path: eagle/tf536_bom.csv
+          retention-days: 90
+
+      - name: Upload CPL as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: assembly-cpl
+          path: eagle/tf536_cpl.csv
+          retention-days: 90
+
+      - name: Display assembly file stats
+        run: |
+          echo "Assembly files generated successfully"
+          echo "BOM lines:"
+          wc -l eagle/tf536_bom.csv
+          echo "CPL lines:"
+          wc -l eagle/tf536_cpl.csv

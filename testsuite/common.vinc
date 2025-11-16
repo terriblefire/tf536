@@ -1,0 +1,158 @@
+reg _bus_term;
+
+reg [4:0] _termination = 5'b11111;
+reg [31:0] _data_bus_sample;
+
+localparam TERM_BERR = 4;
+localparam TERM_AVEC = 3;
+localparam TERM_STERM = 2;
+localparam TERM_DSACK1 = 1;
+localparam TERM_DSACK0 = 0;
+
+wire CPUSPACE = &FC;
+wire IACK = CPUSPACE & ({A[19:16]} === {4'b1111});
+
+task busidle;
+begin
+     RW30 = 1'b1;
+     AS30 = 1'b1;
+     DS30 = 1'b1;
+     SIZ = 2'b11;
+     FC = 3'b111;
+     A = 32'hFFFF_FFFF;
+end
+endtask
+
+task _access; 
+input [31:0] addr;
+input [2:0]  fc;
+begin 
+
+  A = addr;
+  FC = fc;
+  AS30 = 1'b1;
+  wait(CLK); wait(~CLK); 
+
+  #5; AS30 = 1'b0;
+  DS30 = RW30 ? 1'b0 : 1'b1;
+
+  wait(CLK); wait(~CLK);
+
+  #5; DS30 = 1'b0;
+
+  _termination = 5'b11111;
+  
+  while (&_termination == 1'b1) begin 
+
+   	wait(CLK); wait(~CLK);
+   _termination = {BERR, (AVEC | ~IACK), STERM, DSACK}; 
+
+  end
+
+  wait(CLK);  wait(~CLK);
+  _data_bus_sample <= D;
+  #10;
+  busidle();
+
+end
+endtask
+
+
+task write;
+input [31:0] addr;
+input [31:0] data;
+input [1:0] siz;
+begin
+
+  SIZ = siz;
+  RW30 = 1'b0;
+  D_OUT = data;
+  _access(addr, 3'b101);
+
+end
+endtask	
+
+
+task read;
+input [31:0] addr; 
+input [1:0] siz;
+begin
+  
+  SIZ = siz;
+  RW30 = 1'b1;
+  D_OUT = 32'hFFFF_FFFF;
+  _access(addr, 3'b101);
+
+end
+endtask	
+
+
+task readb;
+input [31:0] addr; 
+begin 
+  read(addr, 2'b10);
+end
+endtask
+
+
+task readw;
+input [31:0] addr; 
+begin 
+  read(addr, 2'b01);
+end
+endtask
+
+
+task readl;
+input [31:0] addr; 
+begin 
+  read(addr, 2'b00);
+end
+endtask
+
+
+task writeb;
+input [31:0] addr; 
+input [7:0] data;
+begin 
+  write(addr, {4{data}}, 2'b10);
+end
+endtask
+
+
+task writew;
+input [31:0] addr; 
+input [15:0] data;
+begin 
+  write(addr, {2{data}}, 2'b01);
+end
+endtask
+
+
+task writel;
+input [31:0] addr; 
+input [32:0] data;
+begin 
+  write(addr, data, 2'b00);
+end
+endtask
+
+
+task iack;
+input [2:0] level; 
+begin
+
+  _access({28'hFFFF_FFF, level, 1'b1}, 3'b111);
+
+end
+endtask	
+
+
+task fpu;
+begin 
+
+  RW30 = 1'b1;
+  _access({32'hFFF2FFFF}, 3'b111);
+
+end
+endtask

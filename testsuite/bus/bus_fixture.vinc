@@ -1,0 +1,114 @@
+
+wire CLK;
+wire [1:0] DSACK;
+wire [2:0] IPL;
+wire [15:0] D_AMIGA_IN;
+reg [15:0] D_AMIGA_OUT;
+
+wire [12:0] ARAM;
+
+reg DTACK = 1'b1;
+
+`include "../registers.vinc"
+
+	// Instantiate the Unit Under Test (UUT)
+	main_top MAIN_TOP (
+		.RESET(RESET), 
+		.CLK7M_RAW(CLK7M), 
+		.CLK100M(CLK100M), 
+		.CLKCPU(CLKCPU), 
+		.CLKRAM(CLKRAM), 
+		.A(A), 
+		.D(D[31:16]), 
+		.CLKRAME(CLKRAME), 
+		.ARAM(ARAM), 
+		.BA(BA), 
+		.CAS(CAS), 
+		.DQM(DQM), 
+		.RAMWE(RAMWE), 
+		.RAS(RAS), 
+		.RAMCS(RAMCS), 
+		.RAMOE(RAMOE), 
+		.SIZ(SIZ), 
+		.FC(FC), 
+		.IPL(IPL), 
+		.CBREQ(CBREQ), 
+		.CBACK(CBACK), 
+		.CIIN(CIIN), 
+		.AS30(AS30), 
+		.DS30(DS30), 
+		.RW30(RW30), 
+		.DSACK(DSACK), 
+		.STERM(STERM), 
+        .AVEC(AVEC),
+		.BGACK30(BGACK30), 
+		.BR30(BR30), 
+		.BG30(BG30), 
+		.AS(AS), 
+		.LDS(LDS), 
+		.UDS(UDS), 
+		.BR(BR), 
+		.BG(BG), 
+		.BGACK(BGACK), 
+		.DTACK(DTACK), 
+		.VPA(VPA), 
+		.E(E), 
+		.VMA(VMA), 
+		.BERR(BERR), 
+        .BUSEN(BUSEN),
+		.IOW(IOW), 
+		.IOR(IOR), 
+		.IDEINT(IDEINT), 
+		.IDEWAIT(IDEWAIT), 
+		.IDECS(IDECS)
+	);
+    
+
+PULLUP BERR_pullup (
+	.O(BERR) 
+);
+
+PULLUP BGACK30_pullup (
+	.O(BGACK30) 
+);
+
+PULLUP AS_pullup (
+	.O(AS) 
+);
+
+PULLUP UDS_pullup (
+	.O(UDS) 
+);
+
+PULLUP LDS_pullup (
+	.O(LDS) 
+);
+
+PULLUP VPA_pullup (
+	.O(VPA) 
+);
+
+genvar c;
+generate
+	for (c = 0; c < 3; c = c + 1) begin: IPL_PULLUP
+
+        PULLUP IPL_pullup (
+            .O(IPL[c]) 
+        );
+    end
+
+endgenerate
+
+generate
+	for (c = 0; c < 16; c = c + 1) begin: DATA_PULLUP
+
+        PULLUP D_pullup (
+            .O(D[c]) 
+        );
+    end
+
+endgenerate
+
+
+assign D[31:16] = BUSEN ? {16{1'bz}} : {D_AMIGA_OUT};
+assign D_AMIGA_IN =  BUSEN ? {16{1'bz}} : {D[31:16]};

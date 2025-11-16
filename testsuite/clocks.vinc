@@ -1,0 +1,72 @@
+// all the clocks you'll ever need?
+
+reg CLK7M = 0;
+reg CLK14M = 0;
+reg CLK16M = 0;
+reg CLK20M = 0;
+reg CLK21M = 0;
+reg CLK25M = 0;
+reg CLK33M = 0;
+reg CLK35M = 0;
+reg CLK40M = 0;
+reg CLK50M = 0;
+reg CLK55M = 0;
+reg CLK62M = 0;
+reg CLK71M = 0;
+reg CLK100M = 0;
+
+always 	begin
+    #71; CLK7M = ~CLK7M;
+end
+
+always 	begin
+    #35; CLK14M = ~CLK14M;
+end
+
+always 	begin
+    #32; CLK16M = ~CLK16M;
+end
+
+always 	begin
+    #25; CLK20M = ~CLK20M;
+end
+
+always 	begin
+    #23; CLK21M = ~CLK21M;
+end
+
+always 	begin
+    #20; CLK25M = ~CLK25M;
+end
+
+always 	begin
+    #16; CLK33M = ~CLK33M;
+end
+
+always 	begin
+    #14; CLK35M = ~CLK35M;
+end
+
+always 	begin
+    #13; CLK40M = ~CLK40M;
+end
+
+always 	begin
+    #10; CLK50M = ~CLK50M;
+end
+
+always 	begin
+    #9; CLK55M = ~CLK55M;
+end
+
+always 	begin
+    #8; CLK62M = ~CLK62M;
+end
+
+always 	begin
+    #8; CLK71M = ~CLK71M;
+end
+
+always 	begin
+    #5; CLK100M = ~CLK100M;
+end

@@ -1,0 +1,64 @@
+#!/usr/bin/env python3
+
+import sys,os,os.path,math
+import argparse
+from struct import unpack
+
+parser = argparse.ArgumentParser(description='Convert a Binary to Verilog.')
+parser.add_argument('-f', '--filename', required=True)
+args = parser.parse_args(sys.argv[1:])
+
+def getSize(filename):
+    st = os.stat(filename)
+    return st.st_size
+
+header = """module bootrom
+(
+        input\t\tclk,\t// bus clock
+        input [%i:0]\taddress,\t// address in
+        output reg [15:0]\tdata\t// data out
+);
+
+always @(posedge clk) begin
+\tcase (address)
+"""
+
+footer = """\tendcase
+end
+
+endmodule"""
+
+
+fileName = args.filename
+fileSize = getSize(fileName)
+basename = os.path.basename(fileName)
+modname = os.path.splitext(basename)[0]
+
+loc = 0
+
+f = open(args.filename, 'rb')
+size = fileSize
+addrw = int(math.ceil(math.log(size,2)))
+
+newfile = header % (addrw-1,)
+
+default = 0
+
+while True:
+    b2 = f.read(2)
+    if b2 == b"" or len(b2) < 1:
+        break
+    n = unpack('>H', b2)   # big endian short
+    u32 = n[0] % 2**16
+    if u32 != default:
+        newfile = newfile + "\t\t%i'd%d:\tdata\t<=\t16'h%04x;\n" % (addrw,loc, u32)
+    loc = loc +1
+
+newfile += "\t\tdefault:\tdata\t<=\t16'd0;\n"
+
+f.close()
+newfile = newfile + footer
+print(newfile)
+# 
+
+

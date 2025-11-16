@@ -1,0 +1,15 @@
+RC3 2021/03/31 Fixed the IDE lockup issue and added unit tests so this doesnt regress.
+
+Serial number changed to 536
+Product code 4 
+
+RC2 2020/08/02
+
+Advanced the CIA read timing code. Noticed it was managing to read after the data had disappeared from CIA A in DiagROM.
+
+Fixes: A2000 compatibility.
+
+RC1 2020/08/01
+
+Changed the timing for the 030.
+Fixes: Turrican II and Damocles.

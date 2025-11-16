@@ -1,0 +1,19 @@
+
+   reg  RESET = 1'b0;
+
+   reg [31:0]   A = 'hFFFF_FFFF;
+   reg 	AS30 =  1'b1;
+   reg 	DS30 =  1'b1;   
+   reg 	RW30 =  1'b1;
+
+   reg [31:0]   D_OUT  = 0;
+   reg [31:0]   D_IN   = 0;
+   
+   reg [2:0]    FC = 3'b000;
+   reg [1:0]    SIZ = 2'b11;
+   reg 		    BGACK = 1'b1;
+   
+   reg          CBREQ = 1'b1;
+
+   wire [31:0] D = RW30 ? {32{1'bz}} : D_OUT;
+   

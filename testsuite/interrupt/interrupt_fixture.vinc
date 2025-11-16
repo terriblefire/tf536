@@ -1,0 +1,33 @@
+    wire CLK;
+    wire [2:0] IPL;
+
+    `include "../registers.vinc"
+
+    reg INT = 1'b1;
+
+    wire STERM = 1'b1;
+    wire DSACK = 2'b11;
+    wire AVEC = 1'b0;
+    wire BERR = 1'b1;
+
+	// Instantiate the Unit Under Test (UUT)
+	interrupt #(.INT_LEVEL(INT_LEVEL)) uut (
+		.CLK(CLK), 
+		.RESET(RESET), 
+		.AS(AS30), 
+		.A(A), 
+		.FC(FC), 
+		.IPL(IPL), 
+		.INT(INT)
+	);
+
+genvar c;
+generate
+	for (c = 0; c < 3; c = c + 1) begin: IPL_PULLUP
+
+        PULLUP TA_pullup (
+            .O(IPL[c]) 
+        );
+    end
+
+endgenerate

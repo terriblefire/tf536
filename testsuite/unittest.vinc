@@ -1,0 +1,47 @@
+
+`define STRINGIFY(x) `"x`"
+`define assert(E,A)  if (E !== A) begin $display("Expected %b, actual %b (Signal %s)", E, A, `STRINGIFY(A)); #100; $finish; end 
+
+task assertexactly;
+input [31:0] expected;
+input [31:0] actual;
+begin
+ if (expected !== actual) begin
+   $display("ASSERT Failed: expected %b, actual %b", expected, actual);
+   $finish_and_return(1);
+ end
+end
+endtask
+
+task assert;
+input [31:0] expected;
+input [31:0] actual;
+begin
+ if (expected != actual) begin
+   $display("ASSERT Failed: expected %b, actual %b", expected, actual);
+   $finish_and_return(1);
+ end
+end
+endtask
+
+task assert_less_than;
+input [31:0] first;
+input [31:0] second;
+begin
+ if (first > second) begin
+   $display("ASSERT LESS THAN Failed: first %b >  %b", first, second);
+   $finish_and_return(1);
+ end
+end
+endtask
+
+task assert_more_than;
+input [31:0] first;
+input [31:0] second;
+begin
+ if (first < second) begin
+   $display("ASSERT MORE THAN Failed: first %b < %b", first, second);
+   $finish_and_return(1);
+ end
+end
+endtask
