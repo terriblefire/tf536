@@ -2211,7 +2211,7 @@ by exp-lbrs.ulp</description>
 <attribute name="PACKAGE" value="TSSOP-20 Texas Instruments" x="98.4758" y="47.2948" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="PRICE" value="None" x="98.4758" y="47.2948" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
-<element name="IC3" library="sjl540" package="SAMACSYS_PARTS_QFP50P2200X2200X160-144N" value="SAMACSYS_PARTS_XC95144XL-10TQG144I" x="48.5394" y="68.2244" smashed="yes" rot="R225">
+<element name="IC3" library="sjl540" package="SAMACSYS_PARTS_QFP50P2200X2200X160-144N" value="XC95288XL-10TQG144I" x="48.5394" y="68.2244" smashed="yes" rot="R225">
 <attribute name="3D_PACKAGE" value="" x="48.5394" y="68.2244" size="1.778" layer="27" rot="R225" display="off"/>
 <attribute name="DESCRIPTION" value="XC95144XL-10TQG144I XC95144XL-10TQG144I, CPLD XC9500XL Flash 144 Cells, 117 I/O, 8 Labs, ISP, 3  3.6 V 144-Pin TQFP" x="48.5394" y="68.2244" size="1.778" layer="27" rot="R225" display="off"/>
 <attribute name="HEIGHT" value="1.6mm" x="48.5394" y="68.2244" size="1.778" layer="27" rot="R225" display="off"/>

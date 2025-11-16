@@ -3314,7 +3314,7 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/74VHC245PW,11
 <part name="U2" library="SN74CB3T3245PW" deviceset="SN74CB3T3245PW" device=""/>
 <part name="U3" library="SN74CB3T3245PW" deviceset="SN74CB3T3245PW" device=""/>
 <part name="U4" library="SN74CB3T3245PW" deviceset="SN74CB3T3245PW" device=""/>
-<part name="IC3" library="sjl540" deviceset="SAMACSYS_PARTS_XC95144XL-10TQG144I" device=""/>
+<part name="IC3" library="sjl540" deviceset="SAMACSYS_PARTS_XC95144XL-10TQG144I" device="" value="XC95288XL-10TQG144I"/>
 <part name="C8" library="microbuilder" deviceset="CAP_CERAMIC" device="1206" value="1uF"/>
 <part name="C9" library="microbuilder" deviceset="CAP_CERAMIC" device="1206" value="1uF"/>
 <part name="C12" library="SparkFun-Capacitors" deviceset="0.1UF-25V(+80/-20%)(0603)" device="" value="0.1uF"/>
