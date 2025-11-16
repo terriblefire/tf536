@@ -142,30 +142,40 @@ cd boards/tf536r2
 make
 ```
 
-This compiles CPLD firmware for both platforms:
-- `tf536r2_main_top_A500_FULL_PHASE_7.jed`
-- `tf536r2_main_top_CDTV_FULL_PHASE_7.jed`
+This compiles CPLD firmware for both platforms and both CPLD chip sizes:
+- `tf536r2_main_top_A500_PHASE_7.jed` (XC95144XL for Amiga 500)
+- `tf536r2_main_top_A500_FULL_PHASE_7.jed` (XC95288XL for Amiga 500)
+- `tf536r2_main_top_CDTV_PHASE_7.jed` (XC95144XL for CDTV)
+- `tf536r2_main_top_CDTV_FULL_PHASE_7.jed` (XC95288XL for CDTV)
 
 ### Build Specific Platform
 
 ```bash
 cd boards/tf536r2
-make a500      # Amiga 500
-make cdtv      # Commodore CDTV
+make a500      # Amiga 500 (builds both XC95144XL and XC95288XL)
+make cdtv      # Commodore CDTV (builds both XC95144XL and XC95288XL)
+make a500-144  # Amiga 500 XC95144XL only
+make a500-288  # Amiga 500 XC95288XL only
+make cdtv-144  # CDTV XC95144XL only
+make cdtv-288  # CDTV XC95288XL only
 ```
 
 Output: `.jed` (JEDEC programming files) and `.svf` (Serial Vector Format)
 
+**Note:** The XC95288XL (FULL) variant provides more logic resources and is the recommended choice for most builds. The XC95144XL variant is provided for compatibility with boards using the smaller CPLD.
+
 ### Build Configuration
 
-Key Makefile variables (set in `boards/tf536r2/Makefile`):
+Key Makefile variables (used internally by `boards/tf536r2/Makefile`):
 
 ```makefile
-FULL=1              # Use XC95288XL (larger CPLD) instead of XC95144XL
+FULL=0              # XC95144XL (smaller CPLD)
+FULL=1              # XC95288XL (larger CPLD, recommended)
 CLOCK_PHASE=7       # Clock phase alignment (0-7)
-SERIALNO=1000       # Serial number for production builds
 TARGET=A500         # Platform target (A500, CDTV)
 ```
+
+The build system automatically builds both CPLD sizes when you run `make a500` or `make cdtv`.
 
 ### Clean Build Artifacts
 
