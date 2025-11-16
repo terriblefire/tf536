@@ -7,20 +7,22 @@ include ../Makefile.inc
 
 $(BOARDPREFIX): a500 cdtv
 
-# Build both XC95144XL and XC95288XL variants for A500
-a500: a500-144 a500-288
-
-a500-144:
-	$(XILINXENV) make -f ../Makefile.cpld BOARD=$(BOARD) SOURCES=$(SOURCES) SUBPROJ=main REVISION=$(REVISION) OPTMODE=speed OPTIMISE=speed CLOCK_PHASE=$(CLOCK_PHASE) CHIPSIZE=144 TARGET=A500
+# Build XC95288XL variant by default (recommended)
+a500: a500-288
 
 a500-288:
 	$(XILINXENV) make -f ../Makefile.cpld BOARD=$(BOARD) SOURCES=$(SOURCES) SUBPROJ=main REVISION=$(REVISION) OPTMODE=speed OPTIMISE=speed CLOCK_PHASE=$(CLOCK_PHASE) CHIPSIZE=288 TARGET=A500
 
-# Build both XC95144XL and XC95288XL variants for CDTV
-cdtv: cdtv-144 cdtv-288
+# XC95144XL variant (manual build only - may not fit)
+a500-144:
+	$(XILINXENV) make -f ../Makefile.cpld BOARD=$(BOARD) SOURCES=$(SOURCES) SUBPROJ=main REVISION=$(REVISION) OPTMODE=speed OPTIMISE=speed CLOCK_PHASE=$(CLOCK_PHASE) CHIPSIZE=144 TARGET=A500
 
-cdtv-144:
-	$(XILINXENV) make -f ../Makefile.cpld BOARD=$(BOARD) SOURCES=$(SOURCES) SUBPROJ=main REVISION=$(REVISION) OPTMODE=speed OPTIMISE=speed CLOCK_PHASE=$(CLOCK_PHASE) CHIPSIZE=144 TARGET=CDTV
+# Build XC95288XL variant by default (recommended)
+cdtv: cdtv-288
 
 cdtv-288:
 	$(XILINXENV) make -f ../Makefile.cpld BOARD=$(BOARD) SOURCES=$(SOURCES) SUBPROJ=main REVISION=$(REVISION) OPTMODE=speed OPTIMISE=speed CLOCK_PHASE=$(CLOCK_PHASE) CHIPSIZE=288 TARGET=CDTV
+
+# XC95144XL variant (manual build only - may not fit)
+cdtv-144:
+	$(XILINXENV) make -f ../Makefile.cpld BOARD=$(BOARD) SOURCES=$(SOURCES) SUBPROJ=main REVISION=$(REVISION) OPTMODE=speed OPTIMISE=speed CLOCK_PHASE=$(CLOCK_PHASE) CHIPSIZE=144 TARGET=CDTV
