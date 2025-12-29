@@ -11,7 +11,7 @@ A Motorola 68030-based hardware accelerator for Amiga 500 and CDTV computers. Th
 
 ## Discord
 
-https://discord.gg/aXGkKWJQ
+https://discord.gg/Q5zfusgnmH
 
 ## Overview
 
